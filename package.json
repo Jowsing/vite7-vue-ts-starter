@@ -15,6 +15,11 @@
     "stylelint:fix": "stylelint --fix .scss, .vue ./src",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
   "engines": {
     "node": ">=24.x",
     "pnpm": ">=9.x"
