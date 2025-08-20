@@ -1,11 +1,9 @@
-import { createApp } from 'vue'
-
-import 'element-plus/dist/index.css'
-
-import '@/styles/index.scss'
+import 'virtual:uno.css'
 
 import App from './App.vue'
 
-import 'virtual:uno.css'
+import router from '@/router/index'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+app.use(router).mount('#app')

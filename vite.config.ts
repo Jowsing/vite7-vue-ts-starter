@@ -6,7 +6,7 @@ import { loadEnv } from 'vite'
  */
 import Vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
-// import AutoImport from 'unplugin-auto-import/vite'
+import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 
 /*
@@ -26,6 +26,56 @@ export default defineConfig(({ mode }) => {
         legacy: {
           renderModernChunks: false
         }
+      }),
+      AutoImport({
+        include: [/\.[tj]sx?$/, /\.vue\??/],
+        imports: [
+          'vue',
+          'vue-router',
+          'vuex',
+          {
+            vue: ['createVNode', 'render'],
+            'vue-router': ['createRouter', 'createWebHistory', 'createWebHashHistory', 'useRouter', 'useRoute'],
+            uuid: [['v4', 'uuidv4']],
+            // 全局使用 _.xxxx()
+            'lodash-es': [
+              // default imports
+              ['*', '_'] // import { * as _ } from 'lodash-es',
+            ]
+          },
+          // type import
+          {
+            from: 'vue',
+            imports: [
+              'App',
+              'VNode',
+              'ComponentPublicInstance',
+              'ComponentPublicInstanceCostom',
+              'ComponentInternalInstance'
+            ],
+            type: true
+          },
+          {
+            from: 'vue-router',
+            imports: [
+              'RouteRecordRaw',
+              'RouteLocationRaw',
+              'LocationQuery',
+              'RouteParams',
+              'RouteLocationNormalizedLoaded',
+              'RouteRecordName',
+              'NavigationGuard'
+            ],
+            type: true
+          }
+        ],
+        resolvers: mode === 'development' ? [] : [ElementPlusResolver()],
+        dirs: ['./src/hooks'],
+        dts: './auto-imports.d.ts',
+        eslintrc: {
+          enabled: true
+        },
+        vueTemplate: true
       }),
       Components({
         directoryAsNamespace: true,

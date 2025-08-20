@@ -1,19 +1,11 @@
-<script setup lang="ts">
-import { ElConfigProvider } from 'element-plus'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <main class="root">
-    <ElConfigProvider>
-      <HelloWorld />
-    </ElConfigProvider>
-  </main>
+  <ElConfigProvider>
+    <router-view />
+  </ElConfigProvider>
 </template>
 
-<style scoped>
-.root {
-  width: 100%;
-  height: 100%;
-}
+<style lang="scss">
+@use '@/styles/index';
 </style>
