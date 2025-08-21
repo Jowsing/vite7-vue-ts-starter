@@ -1,6 +1,6 @@
 import childRoutes from './child-routes'
 
-const Layout = () => import('@/components/Layout/index.vue')
+const Layout = () => import('@/components/Layout.vue')
 
 const routes: RouteRecordRaw[] = [
   {
